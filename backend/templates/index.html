@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Professional Badger Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <div class="animation-container">
+    <!-- Animated Title -->
+    <h1 class="portal-title animate__animated animate__fadeInDownBig animate__slow">
+      WE UNCOVER DATA FOR YOU
+    </h1>
+    <script>
+        const title = document.querySelector('.portal-title');
+        
+        // Start with just the fade-down
+        title.style.animation = 'fadeDown 1.5s ease-out forwards';
+        
+        title.addEventListener('animationend', (e) => {
+          if (e.animationName === 'fadeDown') {
+            // ADD the pulse while preserving existing styles
+            title.style.animation = `
+              fadeDown 1.5s ease-out forwards,
+              singlePulse 0.8s ease-out forwards
+            `;
+          }
+        });
+      </script>
+
+    <!-- Central Badger -->
+    <img src="{{ url_for('static', filename='images/' + main_image) }}" 
+         class="main-badger"
+         alt="Badger Logo">
+  </div>
+</body>
+</html>

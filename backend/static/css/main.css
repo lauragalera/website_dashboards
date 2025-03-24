@@ -1,0 +1,77 @@
+/* ===== Base Styles ===== */
+body {
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  /* ===== Container ===== */
+  .animation-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #0f4c81 0%, #1a237e 100%);
+  }
+  
+  /* ===== Badger Image ===== */
+  .main-badger {
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    filter: drop-shadow(0 0 15px rgba(79, 195, 247, 0.7));
+  }
+
+  /* ===== Title Styles ===== */
+.portal-title {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -100vh);
+    z-index: 100;
+    
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-align: center;
+    text-shadow: 
+      0 0 10px #4fc3f7,
+      0 0 20px rgba(79, 195, 247, 0.7),
+      0 0 30px rgba(79, 195, 247, 0.4);
+    
+    /* Initial state */
+    opacity: 0;
+    
+    /* First animation only */
+    animation: fadeDown 2.5s ease-out forwards;
+  }
+  
+  /* Keyframes for fade down */
+  @keyframes fadeDown {
+    0% { 
+      opacity: 0;
+      transform: translate(-50%, -100vh);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+  
+  /* Second animation (triggered via JS after first completes) */
+  @keyframes singlePulse {
+    0%, 100% {
+      transform: translate(-50%, 0) scale(1);
+    }
+    50% {
+      transform: translate(-50%, 0) scale(1.05);
+    }
+  }
