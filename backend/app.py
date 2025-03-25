@@ -4,7 +4,8 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
-
+import plotly.graph_objects as go
+from plotly_plots import teacher_plots
 
 app = Flask(__name__)
 
@@ -17,16 +18,11 @@ def home():
 # Create Dash app
 dash_app = dash.Dash(__name__, server=app, url_base_pathname='/dashboard/')
 
-# Sample Data
-df = px.data.gapminder().query("year == 2007").head(10)
-
-# Bar Chart
-fig = px.bar(df, x='country', y='gdpPercap', title="GDP Per Capita by Country")
 
 # Layout
 dash_app.layout = html.Div(children=[
-    html.H1("Simple Dashboard"),
-    dcc.Graph(figure=fig)
+    html.H1("Teacher Dashboard"),
+    dcc.Graph(figure=teacher_plots.bubble_chart_plot())
 ])
 
 # Flask Route
