@@ -1,23 +1,17 @@
-from flask import Flask, render_template
 import os
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-def get_orbit_images():
-    """Auto-discover orbit images with error handling"""
-    try:
-        return [f for f in os.listdir('static/images') 
-                if f.startswith('orbit') and f.endswith(('.png', '.jpg'))]  # Fixed typo: 'orbits' → 'orbit'
-    except FileNotFoundError:
-        return [] 
-
 @app.route('/')
 def home():
-    return render_template('index.html', 
-        main_image='badger.png',
-        orbit_images=get_orbit_images()
-    )
+    image_folder = os.path.join(app.static_folder, 'images')
+    images = [img for img in os.listdir(image_folder) if img.startswith("formula")]
+    return render_template('index.html', images=images, main_image="badger.png")
 
-# Add this to run the server
+@app.route('/dashboard_main')
+def 
+
+
 if __name__ == '__main__':
-    app.run(debug=True)  # Starts the server on port 5000
+    app.run(debug=True)

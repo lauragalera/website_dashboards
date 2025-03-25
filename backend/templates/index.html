@@ -33,6 +33,22 @@
     <img src="{{ url_for('static', filename='images/' + main_image) }}" 
          class="main-badger"
          alt="Badger Logo">
+
+         <button class="explore-btn animate__animated animate__fadeIn animate__delay-1s">
+            EXPLORE NOW
+          </button>
+    <!-- Left and Right Containers for Floating Images -->
+    <div class="left-container"></div>
+    <div class="right-container"></div>
+  </div>
+
+  <!-- Store image list as JSON -->
+  <script type="application/json" id="image-data">
+    {{ images | tojson }}
+  </script>
+
+  <!-- Link external JavaScript -->
+  <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
   </div>
 </body>
 </html>
