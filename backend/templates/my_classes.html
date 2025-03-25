@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Professional Badger Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <div class="animation-container">
+    <!-- Animated Title -->
+    <h1 class="myclasses_title">
+        MY CLASSROOMS
+    </h1>
+
+    <form action="{{ url_for('dashboard_page') }}" method="GET">
+        <select name="classroom_id" class="glowing-select">
+          {% for option in options %}
+            <option value="{{ option['classroom_id'] }}">{{ option['classroom_subj_grade'] }}</option>
+          {% endfor %}
+        </select>
+        
+        <button type="submit" class="explore-btn animate__animated animate__fadeIn animate__delay-1s">
+            NEXT
+        </button>
+      </form>
+  </div>
+</body>
+</html>
