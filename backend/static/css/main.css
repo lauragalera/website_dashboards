@@ -49,6 +49,16 @@ body {
     align-items: center;
     background: radial-gradient(circle, #0f4c81 0%, #1a237e 100%);
   }
+
+  .animation-container-dashboard {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(circle, #0f4c81 0%, #1a237e 100%);
+    overflow: hidden;
+  }
   
   /* ===== Badger Image ===== */
   .main-badger {

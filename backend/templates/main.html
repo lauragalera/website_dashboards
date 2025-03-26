@@ -5,15 +5,51 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <style>
+    .animation-container-dashboard {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle, #0f4c81 0%, #1a237e 100%);
+    }
+    
+    .title-button-container {
+      display: flex;
+      justify-content: space-between; /* Pushes items to opposite sides */
+      align-items: center; /* Perfect vertical alignment */
+      width: 100%;
+      padding: 15px 20px;
+    }
+    
+    .use-me-btn {
+      background-color: #6ada4e;
+      border: none;
+      color: white;
+      padding: 8px 50px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: sans-serif;
+      /* Removed order property - not needed */
+      margin-left: auto; /* Pushes button to far right */
+      margin-right: 100px; /* Adds space between button and title */
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-  <div class="animation-container">
-    <!-- Title with inline style for specific spacing -->
-    <h1 class="myclasses_title">Teacher Dashboard Class</h1>
+  <div class="animation-container-dashboard">
+    <!-- Title with button on right -->
+    <div class="title-button-container">
+      <h1 class="myclasses_title">Teacher Dashboard Class</h1>
+      <button class="use-me-btn">Use Me</button>
+    </div>
     
     <!-- Dashboard Container -->
     <div class="dashboard-iframe-container">
-      <iframe src="/dashboard/?classroom_id={{ classroom_id }}" style="border:none; margin-top:60px"></iframe>
+      <iframe src="/dashboard/?classroom_id={{ classroom_id }}" style="border:none; margin-top:20px"></iframe>
     </div>
   </div>
 </body>
