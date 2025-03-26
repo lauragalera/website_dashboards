@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+  <title>Professional Badger Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <p>Welcome to the dashboard</p>
+  <div class="animation-container">
+    <!-- Title with inline style for specific spacing -->
+    <h1 class="myclasses_title">Teacher Dashboard Class</h1>
+    
+    <!-- Dashboard Container -->
+    <div class="dashboard-iframe-container">
+      <iframe src="/dashboard/?classroom_id={{ classroom_id }}" style="border:none; margin-top:60px"></iframe>
+    </div>
+  </div>
 </body>
 </html>
