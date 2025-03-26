@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Badger Speaks</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { 
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .message-container {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #1a237e;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .report-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .student-btn {
+            background: #1a237e;
+            color: white;
+        }
+        .assignments-btn {
+            background: #1a237e;
+            color: white;
+        }
+        .report-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .back-btn {
+            display: block;
+            margin: 40px auto 0;
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Badger Speaks</h1>
+    
+    <div class="message-container">
+        <p>{{ message }}</p>
+    </div>
+    
+    <div class="button-container">
+        <button class="report-btn student-btn" onclick="location.href='/report_student'">
+            REPORT ONE STUDENT
+        </button>
+        <button class="report-btn assignments-btn" onclick="location.href='/report_assignments'">
+            REPORT OPEN ASSIGNMENTS
+        </button>
+    </div>
+    
+    <button class="back-btn" onclick="window.history.back()">
+        ← Back to Dashboard
+    </button>
+</body>
+</html>

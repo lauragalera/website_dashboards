@@ -121,17 +121,25 @@ body {
 
     opacity: 1;
 }
+
+.button-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+
   .glowing-select {
     font-family: 'GT-Presura-Bold', sans-serif;
     color: white;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     
-    width: 600px;
+    width: 800px;
     height: 60px;
-    padding: 0 20px;
-    margin: 20px;
+    padding: 0 10px;
+    margin: 10px;
     
     background-color: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(255, 213, 79, 0.5);
@@ -181,6 +189,46 @@ body {
 
 
   /* ===== Yellow Explore Button ===== */
+
+
+.use-me-btn {
+
+  display: flex;
+  align-items: center;
+
+  padding: 8px 50px;
+  font-size: 14px;
+  /* Removed order property - not needed */
+  margin-left: auto; /* Pushes button to far right */
+  margin-right: 100px; /* Adds space between button and title */
+  margin-top: 50px;
+
+  background: rgba(255, 213, 79, 0.15);
+  color: #FFD54F;
+  border: 2px solid #FFD54F;
+  border-radius: 4px;
+  padding: 16px 42px;
+  font-family: 'GT-Presura-Bold', sans-serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+  /* Hover effects */
+  .use-me-btn:hover {
+    background: rgba(255, 213, 79, 0.25);
+    box-shadow: 0 0 30px rgba(255, 213, 79, 0.7);
+  }
+  
+  .use-me-btn:hover .btn-glow {
+    opacity: 1;
+    top: -20%;
+    left: -20%;
+  }
+
 .explore-btn {
     position: absolute;
     bottom: 20%;

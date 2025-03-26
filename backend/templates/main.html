@@ -20,22 +20,7 @@
       justify-content: space-between; /* Pushes items to opposite sides */
       align-items: center; /* Perfect vertical alignment */
       width: 100%;
-      padding: 15px 20px;
-    }
-    
-    .use-me-btn {
-      background-color: #6ada4e;
-      border: none;
-      color: white;
-      padding: 8px 50px;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-family: sans-serif;
-      /* Removed order property - not needed */
-      margin-left: auto; /* Pushes button to far right */
-      margin-right: 100px; /* Adds space between button and title */
-      margin-top: 50px;
+      padding: 10px 15px;
     }
   </style>
 </head>
@@ -43,9 +28,36 @@
   <div class="animation-container-dashboard">
     <!-- Title with button on right -->
     <div class="title-button-container">
-      <h1 class="myclasses_title">Teacher Dashboard Class</h1>
-      <button class="use-me-btn">Use Me</button>
-    </div>
+        <h1 class="myclasses_title">{{ classroom_name }} DASHBOARD</h1>
+        <button class="use-me-btn" id="helpButton" onclick="openHelpWindow()">
+          <img src="/static/images/badger_glasses.png" alt="Icon" class="button-icon">
+          Need Help?
+        </button>
+      </div>
+
+      <script>
+        function openHelpWindow() {
+  // Set desired dimensions
+  const width = 800;
+  const height = 600;
+  
+  // Calculate center position
+  const left = (screen.width - width) / 2;
+  const top = (screen.height - height) / 2;
+  
+  // Open a new window with proper focus
+  const helpWindow = window.open(
+    '/badger_report',
+    'HelpWindow',
+    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,location=no,status=no`
+  );
+  
+  // Ensure the new window is brought to the front
+  if (helpWindow) {
+    helpWindow.focus();
+  }
+}
+        </script>
     
     <!-- Dashboard Container -->
     <div class="dashboard-iframe-container">
@@ -54,3 +66,5 @@
   </div>
 </body>
 </html>
+
+
