@@ -28,40 +28,55 @@
   <div class="animation-container-dashboard">
     <!-- Title with button on right -->
     <div class="title-button-container">
-        <h1 class="myclasses_title">{{ classroom_name }} DASHBOARD</h1>
-        <button class="use-me-btn" id="helpButton" onclick="openHelpWindow()">
-          <img src="/static/images/badger_glasses.png" alt="Icon" class="button-icon">
-          Need Help?
-        </button>
-      </div>
+        <h1 class="myclasses_title">{{ classroom_name}} DASHBOARD</h1>
+        <a href="/badger_report?classroom_id={{ classroom_id }}" 
+        class="use-me-btn" 
+        id="helpButton"
+        target="_blank"
+        onclick="return openHelpWindow(event, this)">
+       <img src="/static/images/badger_glasses.png" alt="Icon" class="button-icon">
+        REPORT
+     </a>
+</div>
 
-      <script>
-        function openHelpWindow() {
-  // Set desired dimensions
+<script>
+function openHelpWindow(event, element) {
+  event.preventDefault();
+  
+  const url = element.href;
+  
+  // Debug: Log the URL to verify classroom_id is present
+  console.log("Popup URL will be:", url);
+  
+  if (!url.includes("classroom_id=") || url.endsWith("classroom_id=")) {
+    alert("Error: classroom_id is missing!"); // Alert if ID is missing
+    return false;
+  }
+  
   const width = 800;
   const height = 600;
-  
-  // Calculate center position
   const left = (screen.width - width) / 2;
   const top = (screen.height - height) / 2;
-  
-  // Open a new window with proper focus
-  const helpWindow = window.open(
-    '/badger_report',
-    'HelpWindow',
-    `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=no,location=no,status=no`
+
+  const newWindow = window.open(
+    url,
+    'badgerReportWindow',
+    `width=${width},height=${height},left=${left},top=${top},
+    location=yes,menubar=no,toolbar=no,status=no,resizable=yes,scrollbars=yes`
   );
-  
-  // Ensure the new window is brought to the front
-  if (helpWindow) {
-    helpWindow.focus();
+
+  if (!newWindow) {
+    window.location.href = url;  // Fallback if pop-up blocked
   }
+
+  return false;
 }
-        </script>
+
+</script>
     
     <!-- Dashboard Container -->
     <div class="dashboard-iframe-container">
-      <iframe src="/dashboard/?classroom_id={{ classroom_id }}" style="border:none; margin-top:20px"></iframe>
+      <iframe src="/dashboard/?classroom_id={{ classroom_id }}" style="border:none; margin-top:50px"></iframe>
     </div>
   </div>
 </body>

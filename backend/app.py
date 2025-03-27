@@ -10,28 +10,89 @@ from dash.dependencies import Input, Output
 from urllib.parse import urlparse, parse_qs
 from dash.dependencies import Input, Output, State, ALL
 from chatgpt_prompts import queries
+import random
+
 
 
 app = Flask(__name__)
 
+PATH_COOKED = '/Users/Gabriela/Desktop/github/website_dashboards/backend/static/data/cooked_data.csv'
+
 MONTHS = ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
 MONTH_MAP = {i: month for i, month in enumerate(MONTHS)}
 
+student_names_all = [
+    "Emma Johnson",
+    "Liam Smith",
+    "Olivia Williams",
+    "Noah Brown",
+    "Ava Jones",
+    "William Garcia",
+    "Sophia Miller",
+    "Benjamin Davis",
+    "Isabella Rodriguez",
+    "Mason Martinez",
+    "Charlotte Hernandez",
+    "Elijah Lopez",
+    "Amelia Gonzalez",
+    "James Wilson",
+    "Mia Anderson",
+    "Alexander Thomas",
+    "Harper Taylor",
+    "Michael Moore",
+    "Evelyn Jackson",
+    "Daniel Martin",
+    "Abigail Lee",
+    "Matthew Perez",
+    "Emily Thompson",
+    "David White",
+    "Elizabeth Harris",
+    "Joseph Sanchez",
+    "Sofia Clark",
+    "Jackson Ramirez",
+    "Avery Lewis",
+    "Samuel Robinson",
+    "Scarlett Walker",
+    "Sebastian Young",
+    "Victoria Allen",
+    "Henry King",
+    "Madison Wright",
+    "Owen Scott",
+    "Luna Torres",
+    "Gabriel Nguyen",
+    "Chloe Hill",
+    "Julian Flores"
+]
+
 DICT_CLASSROOM_NAMES = {
-    "6151e35feb1d764165023b81": "Math 7 (grade-7)",
-    "64ffa19e8b9e7f4029799c20": "5th HR Math 7 (grade-7)",
-    "64ffa19efa19023fd68f1818": "4C Math (grade-8)"
+    "6317e8272d03a74142fb038a": "Rick Pd 2 Integrated Math 2",
+    "6317e827b62b13414a993841": "Rick Pd 9 Integrated Math 2",
 }
 
 def get_dropdown_options():
-    df = pd.read_csv('/Users/Gabriela/Desktop/github/website_dashboards/backend/static/data/cooked_data.csv')
+    df = pd.read_csv(PATH_COOKED)
 
-    return df[['classroom_id','classroom_name','classroom_subj_grade']].drop_duplicates()
     # 1. Filter to only include classrooms in our dictionary
-    #valid_ids = list(DICT_CLASSROOM_NAMES.keys())
-    #filtered_df = df[df['classroom_id'].isin(valid_ids)].copy()
+    valid_ids = list(DICT_CLASSROOM_NAMES.keys())
+    filtered_df = df[df['classroom_id'].isin(valid_ids)].copy()
     
-    return df
+    return filtered_df[['classroom_id','classroom_name','classroom_subj_grade']].drop_duplicates()
+
+def get_students_list(classroom_id):
+    df = pd.read_csv(PATH_COOKED)
+
+    unique_student_ids = df[df['classroom_id'] == classroom_id]['student_user_id'].unique()
+        
+    # Convert to list for JSON serialization
+    student_list = unique_student_ids.tolist()
+
+    students_names = random.sample(student_names_all, len(student_list))
+        
+    # Pair IDs with names here in Python
+    student_pairs = list(zip(student_list, students_names))
+
+    return student_pairs
+
 
 @app.route('/')
 def home():
@@ -47,22 +108,47 @@ def myclasses():
 @app.route('/dashboard_page', methods=['GET'])
 def dashboard_page():
     classroom_id = request.args.get('classroom_id')
-    #classroom_name = DICT_CLASSROOM_NAMES[classroom_id]
-    return render_template('main.html', classroom_id=classroom_id, classroom_name='laura')
+    classroom_name = DICT_CLASSROOM_NAMES[classroom_id]
+    return render_template('main.html', classroom_id=classroom_id, classroom_name=classroom_name)
 
 @app.route('/badger_report')
 def badger_report():
-    message = queries.welcome_message()
-    message.content
-    return render_template('badger_report.html', message=message.content)
+    classroom_id = request.args.get('classroom_id')
+    
+    if not classroom_id:
+        print("ERROR: Missing classroom_id parameter")
+        return "Error: Classroom ID is required", 400
+    
+    try:
+        message = queries.welcome_message()
+        students_pairs = get_students_list(classroom_id)
+        
+        return render_template(
+            'badger_report.html',
+            message=message.content,
+            classroom_id=classroom_id,
+            student_pairs=students_pairs  # Pass the pre-zipped pairs
+        )
+        
+    except Exception as e:
+        print(f"Error in badger_report: {str(e)}")
+        return "An error occurred", 500
 
 @app.route('/report_student')
 def report_student():
-    return render_template('report_student.html')  # Create this template
+    df = pd.read_csv(PATH_COOKED)
+    
+    classroom_id = request.args.get('classroom_id')
+    student_id = request.args.get('student_id')
+    student_name = request.args.get('student_name')
+        
+    # Your report generation logic here
+    return render_template('student_report.html',
+                         classroom_id=classroom_id,
+                         student_id=student_id,
+                         student_name=student_name)
 
-@app.route('/report_assignments')
-def report_assignments():
-    return render_template('report_assignments.html')
+
 
 # Create Dash app
 dash_app = dash.Dash(
